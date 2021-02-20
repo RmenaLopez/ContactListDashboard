@@ -14,15 +14,13 @@ import java.io.Serializable;
 @Getter @Setter @NoArgsConstructor
 public class User implements Serializable {
 
-    private @Id Long id; // will be set when persisting
+    private @Id Long id;
 
-    private String firstName;
-    private String lastName;
-    private int age;
+    private String username;
+    private String password;
 
-    public User(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }
