@@ -3,6 +3,8 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   isLoadingResults = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private invalidCredentialsSnackBar: MatSnackBar) { }
 
   ngOnInit() {
     if (this.authService.isLoggedIn)
@@ -53,6 +55,11 @@ export class LoginComponent implements OnInit {
       }, (err) => {
         console.log(err);
       });
+    this.invalidCredentialsPopup();
+  }
+
+  invalidCredentialsPopup(){
+    this.invalidCredentialsSnackBar.open("Invalid username / password", 'Dismiss');
   }
 
   register() {
