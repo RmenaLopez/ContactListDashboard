@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-const apiUrl = 'http://192.168.0.7:8080/api/auth/';
+const apiUrl = 'http://localhost:8080/api/auth/';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,10 @@ export class AuthService {
   isLoggedIn = false;
   redirectUrl: string;
 
-  constructor(private http: HttpClient) {
-    this.redirectUrl = "";
-  }
+  constructor(private http: HttpClient) {}
 
   login(data: any): Observable<any> {
+    console.log("login method!");
     return this.http.post<any>(apiUrl + 'login', data)
       .pipe(
         tap(_ => this.isLoggedIn = true),
@@ -34,6 +33,7 @@ export class AuthService {
   }
 
   register(data: any): Observable<any> {
+    console.log("register method!");
     return this.http.post<any>(apiUrl + 'register', data)
       .pipe(
         tap(_ => this.log('login')),

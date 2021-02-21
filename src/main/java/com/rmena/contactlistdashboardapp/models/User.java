@@ -1,28 +1,39 @@
-package com.rmena.contactlistdashboardapp.user;
+package com.rmena.contactlistdashboardapp.models;
 
+import lombok.*;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Table(name = "users")
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
+    private Long id;
 
-    private @Id @GeneratedValue Long id;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<Contact> contacts = new HashSet<>();
+
+    @NonNull
     private String username;
+    @NonNull
     private String password;
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 }

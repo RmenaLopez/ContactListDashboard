@@ -20,13 +20,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  fullName = '';
-  email = '';
+  username = '';
   password = '';
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
