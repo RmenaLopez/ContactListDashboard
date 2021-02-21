@@ -28,10 +28,18 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    if (this.authService.isLoggedIn)
+    {
+      this.router.navigate(['contacts']);
+    }
+
     this.loginForm = this.formBuilder.group({
       'username' : [null, Validators.required],
       'password' : [null, Validators.required]
     });
+
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('token');
   }
 
   onFormSubmit(form: NgForm) {

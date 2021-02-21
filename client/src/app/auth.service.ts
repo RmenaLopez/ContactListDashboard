@@ -10,7 +10,7 @@ const apiUrl = 'http://localhost:8080/api/auth/';
 })
 export class AuthService {
 
-  isLoggedIn = false;
+  private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false');
   redirectUrl: string;
 
   constructor(private http: HttpClient) {}
@@ -19,7 +19,7 @@ export class AuthService {
     console.log("login method!");
     return this.http.post<any>(apiUrl + 'login', data)
       .pipe(
-        tap(_ => this.isLoggedIn = true),
+        tap(_ => localStorage.setItem('loggedIn', 'true')),
         catchError(this.handleError('login', []))
       );
   }
@@ -27,7 +27,8 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.get<any>(apiUrl + 'signout')
       .pipe(
-        tap(_ => this.isLoggedIn = false),
+        tap(_ =>{localStorage.removeItem('loggedIn');
+        this.loggedInStatus=false;} ),
         catchError(this.handleError('logout', []))
       );
   }
@@ -53,5 +54,9 @@ export class AuthService {
 
   private log(message: string) {
     console.log(message);
+  }
+
+  get isLoggedIn(){
+    return JSON.parse(localStorage.getItem('loggedIn') || this.loggedInStatus.toString());
   }
 }

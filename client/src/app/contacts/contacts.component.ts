@@ -55,6 +55,7 @@ export class ContactsComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('loggedIn');
     this.router.navigate(['login']);
   }
 
