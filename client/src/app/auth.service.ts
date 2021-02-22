@@ -25,10 +25,10 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
+    localStorage.removeItem('loggedIn')
     return this.http.get<any>(apiUrl + 'signout')
       .pipe(
-        tap(_ =>{localStorage.removeItem('loggedIn');
-        this.loggedInStatus=false;} ),
+        tap(),
         catchError(this.handleError('logout', []))
       );
   }
@@ -57,6 +57,6 @@ export class AuthService {
   }
 
   get isLoggedIn(){
-    return JSON.parse(localStorage.getItem('loggedIn') || this.loggedInStatus.toString());
+    return localStorage.getItem('loggedIn');
   }
 }
