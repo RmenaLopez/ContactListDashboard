@@ -5,9 +5,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
 
   datasource:
-    url:
-    username:
-    password:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Drive
 
 app:
