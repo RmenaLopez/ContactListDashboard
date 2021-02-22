@@ -21,7 +21,7 @@ export class ContactsComponent implements OnInit , AfterViewInit{
   contactForm: FormGroup;
   matcher = new MyErrorStateMatcher();
   userContacts: Contact[] = [];
-  displayedColumns: string[] = ['contactName', 'age', 'nickname', 'phone', 'columndelete', 'columnupdate'];
+  displayedColumns: string[] = ['contactName', 'age', 'nickname', 'phone', 'columndelete'];
   isLoadingResults = true;
 
   data = new MatTableDataSource<Contact>(this.userContacts);

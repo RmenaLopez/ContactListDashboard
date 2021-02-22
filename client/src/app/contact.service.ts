@@ -4,9 +4,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from './../environments/environment';
 
 
-const apiUrl = 'http://localhost:8080/api/contacts';
+
+const apiUrl = environment.baseUrl + 'api/contacts';
 
 @Injectable({
   providedIn: 'root'
