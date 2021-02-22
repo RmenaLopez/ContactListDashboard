@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    hibernate:
+      properties:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Drive
+
+app:
+  url:

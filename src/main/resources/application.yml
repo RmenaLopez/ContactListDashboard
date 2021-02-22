@@ -2,13 +2,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-      properties:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-  datasource:
-    url: jdbc:mysql://localhost:3306/db
-    username: user
-    password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
+
 security:
   user:
     password: password

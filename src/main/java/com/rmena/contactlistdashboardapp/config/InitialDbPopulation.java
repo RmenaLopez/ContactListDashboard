@@ -6,7 +6,6 @@ import com.rmena.contactlistdashboardapp.models.User;
 import com.rmena.contactlistdashboardapp.repository.ContactRepository;
 import com.rmena.contactlistdashboardapp.repository.RoleRepository;
 import com.rmena.contactlistdashboardapp.repository.UserRepository;
-import com.rmena.contactlistdashboardapp.service.ContactsService;
 import com.rmena.contactlistdashboardapp.service.CustomUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,18 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.core.io.Resource;
-import org.springframework.util.FileCopyUtils;
 
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.Random;
 import java.util.Scanner;
 
