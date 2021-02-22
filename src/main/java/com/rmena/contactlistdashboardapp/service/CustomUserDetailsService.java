@@ -1,6 +1,7 @@
 package com.rmena.contactlistdashboardapp.service;
 
 import com.rmena.contactlistdashboardapp.models.Role;
+import com.rmena.contactlistdashboardapp.models.RoleObject;
 import com.rmena.contactlistdashboardapp.models.User;
 import com.rmena.contactlistdashboardapp.repository.RoleRepository;
 import com.rmena.contactlistdashboardapp.repository.UserRepository;
@@ -49,7 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService{
         }
     }
 
-    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
+    private List<GrantedAuthority> getUserAuthority(Set<RoleObject> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         userRoles.forEach((role) -> {
             roles.add(new SimpleGrantedAuthority(role.getUserRole()));

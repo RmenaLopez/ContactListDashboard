@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import com.rmena.contactlistdashboardapp.models.Role;
+import com.rmena.contactlistdashboardapp.models.RoleObject;
 import com.rmena.contactlistdashboardapp.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +40,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, Set<Role> set) {
+    public String createToken(String username, Set<RoleObject> set) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", set);
         Date now = new Date();

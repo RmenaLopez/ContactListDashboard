@@ -18,6 +18,7 @@ public class Contact implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user")
     private User user;
 
     @NonNull
