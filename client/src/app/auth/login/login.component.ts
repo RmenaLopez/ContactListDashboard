@@ -52,11 +52,14 @@ export class LoginComponent implements OnInit {
         if (res.token) {
           localStorage.setItem('token', res.token);
           this.router.navigate(['contacts']);
+        } else {
+          this.invalidCredentialsPopup();
         }
       }, (err) => {
+
         console.log(err);
       });
-    this.invalidCredentialsPopup();
+
   }
 
   invalidCredentialsPopup(){
