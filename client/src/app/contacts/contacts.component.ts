@@ -8,29 +8,8 @@ import { MyErrorStateMatcher } from "../auth/login/login.component";
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, ViewChild} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
-export interface PeriodicElement {
-  contactName: string;
-  age: string;
-  nickname: string;
-  phone: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {contactName: '1', age: 'Hydrogen', nickname: '1.0079', phone: 'H'},
-  {contactName: '2', age: 'Hydrogen1', nickname: '1.0079', phone: 'H'},
-  {contactName: '3', age: 'Hydrogen2', nickname: '1.0079', phone: 'H'},
-  {contactName: '4', age: 'Hydrogen3', nickname: '1.0079', phone: 'H'},
-  {contactName: '5', age: 'Hydrogen4', nickname: '1.0079', phone: 'H'},
-  {contactName: '6', age: 'Hydrogen5', nickname: '1.0079', phone: 'H'},
-  {contactName: '7', age: 'Hydrogen6', nickname: '1.0079', phone: 'H'},
-  {contactName: '8', age: 'Hydrogen7', nickname: '1.0079', phone: 'H'},
-  {contactName: '9', age: 'Hydrogen8', nickname: '1.0079', phone: 'H'},
-  {contactName: '10', age: 'Hydrogen9', nickname: '1.0079', phone: 'H'},
-  {contactName: '11', age: 'Hydrogen22', nickname: '1.0079', phone: 'H'},
-  {contactName: '12', age: 'Hydrogen33', nickname: '1.0079', phone: 'H'}
-
-];
 
 @Component({
   selector: 'app-contacts',
@@ -46,6 +25,7 @@ export class ContactsComponent implements OnInit , AfterViewInit{
   isLoadingResults = true;
 
   data = new MatTableDataSource<Contact>(this.userContacts);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private formBuilder: FormBuilder, private contactService: ContactService, private authService: AuthService, private router: Router) { }
 
@@ -94,6 +74,7 @@ export class ContactsComponent implements OnInit , AfterViewInit{
 
   ngAfterViewInit() {
     this.data.sort = this.sort;
+    this.data.paginator = this.paginator;
   }
 
   refresh() {
