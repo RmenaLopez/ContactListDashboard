@@ -28,4 +28,14 @@ public class ContactController {
         contactsService.addContact(contact);
     }
 
+    @DeleteMapping(path = "/contacts")
+    public void deleteContact(@RequestBody Contact contact){
+        contactsService.deleteContact(contact.getId());
+    }
+
+    @PutMapping(path = "/contacts/update")
+    public void updateContact(@RequestBody Contact contact){
+        contactsService.updateContact(contact);
+    }
+
 }

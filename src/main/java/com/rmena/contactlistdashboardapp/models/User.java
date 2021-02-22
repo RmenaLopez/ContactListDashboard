@@ -19,7 +19,9 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(
+            cascade=CascadeType.MERGE,
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_user_roles",
             joinColumns = @JoinColumn(
@@ -29,7 +31,7 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     private Set<Contact> contacts = new HashSet<>();

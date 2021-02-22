@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -12,6 +11,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_roles")
 public class Role implements Serializable {
 
@@ -20,7 +20,9 @@ public class Role implements Serializable {
     private Integer id;
 
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(
+            cascade=CascadeType.MERGE,
+            mappedBy = "roles")
     private Set<User> users;
 
     @NonNull

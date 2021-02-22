@@ -21,7 +21,7 @@ export class ContactsComponent implements OnInit , AfterViewInit{
   contactForm: FormGroup;
   matcher = new MyErrorStateMatcher();
   userContacts: Contact[] = [];
-  displayedColumns: string[] = ['contactName', 'age', 'nickname', 'phone'];
+  displayedColumns: string[] = ['contactName', 'age', 'nickname', 'phone', 'columndelete', 'columnupdate'];
   isLoadingResults = true;
 
   data = new MatTableDataSource<Contact>(this.userContacts);
@@ -79,6 +79,15 @@ export class ContactsComponent implements OnInit , AfterViewInit{
 
   refresh() {
       this.data.data = this.userContacts;
+  }
+
+  delete(element: Contact) {
+    this.data.data = this.data.data.filter(i => i !== element);
+    this.contactService.deleteContact(element);
+  }
+
+  update(element: Contact) {
+    //TODO
   }
 
 }

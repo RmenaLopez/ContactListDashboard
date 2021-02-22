@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Contact } from './contacts/contact';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -16,11 +16,12 @@ export class ContactService {
   constructor(private http: HttpClient, private router: Router) { }
 
   getContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(apiUrl)
+    const res = this.http.get<Contact[]>(apiUrl)
       .pipe(
         tap(_ => this.log('fetched Contacts')),
         catchError(this.handleError('getContacts', []))
       );
+    return res;
   }
 
   addContact(form: any): Observable<any> {
@@ -31,6 +32,52 @@ export class ContactService {
       );
     this.router.navigate(['contacts']);
     return res;
+  }
+
+  deleteContact(contact: Contact): void {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        id: contact.id,
+        contactName: contact.contactName,
+        age: contact.age,
+        nickname: contact.nickname,
+        phone: contact.phone
+      }
+    }
+    this.http.delete<any>(apiUrl, options).subscribe({
+      next: data => {
+        console.log('Delete successful')
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
+
+  updateContact(contact: Contact): void {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        id: contact.id,
+        contactName: contact.contactName,
+        age: contact.age,
+        nickname: contact.nickname,
+        phone: contact.phone
+      }
+    }
+    this.http.put<any>(apiUrl, options).subscribe({
+      next: data => {
+        console.log('update successful')
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

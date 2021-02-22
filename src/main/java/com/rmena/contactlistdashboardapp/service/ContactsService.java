@@ -36,4 +36,13 @@ public class ContactsService {
         contactRepository.save(contact);
     }
 
+    //TODO: create batch delete
+    public void deleteContact(Long contactId) {
+        contactRepository.deleteById(contactId);
+    }
+
+    public void updateContact(Contact contact) {
+        contactRepository.saveAndFlush(contact);
+    }
+
 }
