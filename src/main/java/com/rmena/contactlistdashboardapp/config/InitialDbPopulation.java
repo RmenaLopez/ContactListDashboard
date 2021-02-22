@@ -15,17 +15,70 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Component
 public class InitialDbPopulation {
+
+    private final List<String> nameList = Stream.of(
+    "Luci Ugalde",
+    "Lana Stoughton",
+    "Launa Middleton",
+    "Oswaldo Smidt",
+    "Ciara Barrus" ,
+    "Zada Dills",
+    "Jadwiga Every",
+    "Jama Lautenschlage",
+    "Alfredia Lamoureaux",
+    "Scot Heskett",
+    "Patrina Korn",
+    "Dessie Kai",
+    "Dena Grogg",
+    "Madelene Geer",
+    "Jetta Reilley",
+    "Marsha Moschella",
+    "Herma Davilla",
+    "Caridad Ruffner",
+    "Jolanda Maynard",
+    "Stepanie Lindamood",
+    "Willetta Bullock",
+    "Wyatt Wooldridge",
+    "Danette Lindley",
+    "Denae Brandenberger",
+    "Milda Hartung",
+    "Elane Rife",
+    "Loyce Westervelt",
+    "Maryanna Altieri",
+    "Kortney Andrus",
+    "Brandon Squillante",
+    "Karen Nissen",
+    "Tenisha Kelch",
+    "Elna Dries",
+    "Mariella Burtner",
+    "Irina Uhl",
+    "Melony Jacox",
+    "Ching Cuccia",
+    "Waneta Cappiello",
+    "Suzette Friley",
+    "Cristal Glueck",
+    "Ula Metro",
+    "Margaretta Hoggan",
+    "Hassan Brewer",
+    "Trudy Serrata",
+    "Tabetha Poynor",
+    "Arica Garton",
+    "Stacee Chesser",
+    "Marcela Ruelas",
+    "Estefana Batdorf",
+    "Mickey Levar"
+            )
+            .collect(Collectors.toList());
+
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -71,32 +124,21 @@ public class InitialDbPopulation {
             service.saveUser(user, adminRole);
         }
 
-        String fileName = "config/names.txt";
-        ClassLoader classLoader = getClass().getClassLoader();
 
-        File file = new File(classLoader.getResource(fileName).getFile());
         Random random = new Random();
-        try {
-            Scanner myReader = new Scanner(file);
-            Contact contact = new Contact();
-            while (myReader.hasNextLine()) {
-                contact = new Contact();
-                contact.setUser(user);
-                String contactName = myReader.nextLine();
-                contact.setContactName(contactName);
-                contact.setAge(String.valueOf(random.nextInt(100)));
-                contact.setNickname(contactName.substring(0,3));
-                contact.setPhone("662" +
-                                String.valueOf(random.nextInt(5)) +
-                                String.valueOf(random.nextInt(999999 - 100000) + 100000)
-                        );
-                contactRepository.save(contact);
+        Contact contact;
+        for (String name : nameList)
+        {
+            contact = new Contact();
+            contact.setUser(user);
+            contact.setContactName(name);
+            contact.setAge(String.valueOf(random.nextInt(100)));
+            contact.setNickname(name.substring(0,3));
+            contact.setPhone("662" +
+                            String.valueOf(random.nextInt(5)) +
+                            String.valueOf(random.nextInt(999999 - 100000) + 100000)
+                    );
+            contactRepository.save(contact);
             }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
     }
 }
