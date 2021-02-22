@@ -10,6 +10,7 @@ import com.rmena.contactlistdashboardapp.models.User;
 import com.rmena.contactlistdashboardapp.repository.UserRepository;
 import com.rmena.contactlistdashboardapp.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -37,6 +38,9 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsService userService;
 
+    @Value("${app.default.roles.user}")
+    String baseUserRole;
+
     @SuppressWarnings("rawtypes")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthBody data) {
@@ -60,7 +64,7 @@ public class AuthController {
         if (userExists != null) {
             throw new BadCredentialsException("User with username: " + user.getUsername() + " already exists");
         }
-        userService.saveUser(user);
+        userService.saveUser(user, baseUserRole);
         Map<Object, Object> model = new HashMap<>();
         model.put("message", "User registered successfully");
         return ok(model);

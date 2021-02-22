@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       properties:
         dialect: org.hibernate.dialect.MySQL8Dialect
   datasource:
@@ -12,3 +12,11 @@ spring:
 security:
   user:
     password: password
+
+app:
+  default:
+    user: 'root'
+    password: 'password'
+    roles:
+      admin: 'ADMIN'
+      user: 'USER'
