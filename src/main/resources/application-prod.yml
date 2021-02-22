@@ -2,7 +2,8 @@ spring:
   jpa:
     hibernate:
       properties:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+
   datasource:
     url:
     username:
