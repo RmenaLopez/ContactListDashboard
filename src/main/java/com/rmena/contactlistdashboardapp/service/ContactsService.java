@@ -22,7 +22,7 @@ public class ContactsService {
     public List<Contact> getAllContactsForUser(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username);
-        return contactRepository.findAllByUser(user);
+        return contactRepository.findAllByUser(username);
     }
 
     public List<Contact> getAllContacts(){
